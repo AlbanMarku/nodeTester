@@ -5,6 +5,10 @@ module.exports = app => {
         res.json({ message: '👋 from Express!' });
     });
 
+    app.get("/dlc", (req, res) => {
+        res.json({ message: 'another endpoint' });
+    });
+
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
     });

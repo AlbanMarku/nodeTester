@@ -6,7 +6,8 @@ function App() {
 
   useEffect(()=> {
     fetch("/api").then((res) => res.json()).then((data) => setData(data.message));
-    console.log("done fetching")
+    fetch("/dlc").then((res) => res.json()).then((data) => setData(data.message));
+    console.log("done fetching");
   },[])
 
   return (
