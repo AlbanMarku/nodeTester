@@ -6,7 +6,6 @@ function App() {
 
   useEffect(()=> {
     fetch("/api").then((res) => res.json()).then((data) => setData(data.message));
-    fetch("/dlc").then((res) => res.json()).then((data) => setData(data.message));
     console.log("done fetching");
   },[])
 
@@ -14,6 +13,7 @@ function App() {
     <div className="App">
       <p>hello world!</p>
       <p>{data}</p>
+      <p></p>
     </div>
   )
 }
