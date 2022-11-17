@@ -1,23 +1,31 @@
 const path = require('path');
-const mongoose = require("mongoose");
+const User = require("./models/user");
 
-
-module.exports = app => {
-
-    const dbURI = "mongodb+srv://albanshqiptar:alban4321@myfirstcluster.jfc8lqn.mongodb.net/firstDataBase?retryWrites=true&w=majority";
-    mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
-    .then((res) => console.log("connected to db", res))
-    .catch((err) => console.log(err));
+const endpoint = app => {
 
     app.get("/api", (req, res) => {
         res.json({ message: '👋 from Express!' });
     });
 
-    app.get("/dlc", (req, res) => {
-        res.json({ message: 'another endpoint' });
-    });
+    app.get("/add-user",(req, res) => {
+        const user = new User ({
+            name: "bob",
+            age: 23
+        });
+
+        user.save()
+        .then((result) => {
+            res.send(result);
+            console.log("Saved user");
+        })
+        .catch((err) => console.log(err))
+    })
 
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
     });
 };
+
+module.exports = {
+    endpoint
+}

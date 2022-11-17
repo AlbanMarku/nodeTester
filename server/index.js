@@ -3,11 +3,19 @@ const express = require('express'),
     route   = require('./route.js'),
     app     = express(),
     port    = process.env.PORT || 8080;
+    mongoose = require("mongoose")
     
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
-route(app);
+const dbURI = "mongodb+srv://albanshqiptar:alban4321@myfirstcluster.jfc8lqn.mongodb.net/firstDataBase?retryWrites=true&w=majority";
 
-app.listen(port);
+mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
+.then((res) => {
+    app.listen(port);
+    route.endpoint(app);
+    console.log("Connected to db!")
+})
+.catch((err) => console.log(err));
+
 
 console.log(`API server is listening on port:${port}`);
