@@ -7,11 +7,12 @@ const endpoint = app => {
         res.json({ message: '👋 from Express!' });
     });
 
-    app.get("/add-user",(req, res) => {
+    app.post("/add-user",(req, res) => {
         const user = new User ({
-            name: "bob",
-            age: 23
+            name: req.body.name,
+            age: req.body.age
         });
+
 
         user.save()
         .then((result) => {

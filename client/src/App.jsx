@@ -6,6 +6,15 @@ function App() {
 
   useEffect(()=> {
     fetch("/api").then((res) => res.json()).then((data) => setData(data.message));
+    fetch('/add-user', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name: "test", age: 22})
+    })
+    .then(res=> console.log(res))
     console.log("done fetching");
   },[])
 

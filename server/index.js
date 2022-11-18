@@ -6,6 +6,7 @@ const express = require('express'),
     mongoose = require("mongoose")
     
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
+app.use(express.json({limit: "1mb"}))
 
 const dbURI = "mongodb+srv://albanshqiptar:alban4321@myfirstcluster.jfc8lqn.mongodb.net/firstDataBase?retryWrites=true&w=majority";
 
