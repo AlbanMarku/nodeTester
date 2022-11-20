@@ -2,13 +2,18 @@ const express = require('express'),
     path    = require('path'),
     route   = require('./route.js'),
     app     = express(),
-    port    = process.env.PORT || 8080;
+    port    = 8080;
     mongoose = require("mongoose")
     
-app.use(express.static(path.resolve(__dirname, '../client/dist')));
-app.use(express.json({limit: "1mb"}))
+const MONGO_USER = process.env.MONGO_USER,
+    MONGO_PWD = process.env.MONGO_PWD,
+    CLUSTER_NAME = process.env.CLUSTER_NAME,
+    CLUSTER_ID = process.env.CLUSTER_ID
 
-const dbURI = "mongodb+srv://albanshqiptar:alban4321@myfirstcluster.jfc8lqn.mongodb.net/firstDataBase?retryWrites=true&w=majority";
+app.use(express.static(path.resolve(__dirname, '../client/dist')));
+app.use(express.json({limit: "1mb", strict: true}));
+
+const dbURI = `mongodb+srv://${MONGO_USER}:${MONGO_PWD}@${CLUSTER_NAME}.${CLUSTER_ID}.mongodb.net/firstDataBase?retryWrites=true&w=majority`;
 
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
 .then((res) => {
@@ -17,6 +22,5 @@ mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
     console.log("Connected to db!")
 })
 .catch((err) => console.log(err));
-
 
 console.log(`API server is listening on port:${port}`);
